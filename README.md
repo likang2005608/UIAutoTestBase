@@ -1,7 +1,7 @@
 # UIAutoTestBase
 UI自动化测试基础知识点
 
-元素的定位的8种方法
+# 元素的定位的8种方法
 ①id
 ②name
 ③class name
@@ -13,7 +13,7 @@ UI自动化测试基础知识点
 如果实在不知道怎么通过上述8个类型去定位，那么可以再在火狐浏览器47版本及以下装一个firebug和Xpath来快速的获取元素的定位
 基本语法：find_element_by_xpath("//input[@id=‘kw’]")
 
-操作浏览器界面
+# 操作浏览器界面
 ①全屏：maximize_window()，无需传参
 例：driver.maximize_window()
 
@@ -29,7 +29,7 @@ UI自动化测试基础知识点
 
 ⑥关闭浏览器:driver.quit()
 
-元素的基本操作
+# 元素的基本操作
 ①clear() 清除文本，如果是一个文件输入框
 例：driver.find_element_by_id(“idInput”).clear()
 
@@ -58,7 +58,7 @@ print attribute
 例：result=driver.find_element_by_id(“kw”).is_displayed()
 print result
 
-鼠标操作事件
+# 鼠标操作事件
 如：A=driver.find_element_by_id(“cp”)
 ①ActionChains(driver).context_click(A).perform() # 右键
 
@@ -73,7 +73,7 @@ print result
 注：鼠标操作的方法由 ActionChains 类提供
 perform() 执行所有 ActionChains 中存储的行为
 
-键盘事件
+# 键盘事件
 driver.find_element_by_id(“kw”).send_keys(“seleniumm”) # 输入内容selenium
 driver.find_element_by_id(“kw”).send_keys(Keys.BACK_SPACE) # 退格
 driver.find_element_by_id(“kw”).send_keys(Keys.SPACE) # 空格键
@@ -86,11 +86,11 @@ driver.find_element_by_id(“su”).send_keys(Keys.ESCAPE) # 退出按钮
 driver.find_element_by_id(“su”).send_keys(Keys.TAB) # 制表键
 driver.find_element_by_id(“su”).send_keys(Keys.F1) # 按下键盘F1
 
-等待函数
+# 等待函数
 ①driver.implicitly_wait(10) # 等待10秒钟，若提前结束就停止等待，若超时就抛出异常
 ②time.sleep(10) # 傻傻的等待10秒钟，不管是否提前结束
 
-不同框架之间的切换
+# 不同框架之间的切换
 ①driver.switch_to.frame(“if”) # 切换到id或者name为if的框架
 
 ②driver.switch_to.frame(frame) 若无法用name 或者 id定位到框架，则可以先用其他方式定位获取到框架元素，再将这个元素传入switch_to…frame()里，如：
@@ -100,14 +100,14 @@ driver.switch_to_frame(xf)
 
 ③driver.switch_to_default.content() # 切换到默认的框架中
 
-不同窗口的切换（弹框）
+# 不同窗口的切换（弹框）
 ①driver.current_window_handle # 获取当前窗口的句柄，切换到js弹框上
 
 ②driver.window_handles 　　 # 获取所有窗口的句柄
 
 ③driver.switch_to.window() 　 # 切换到某个窗口
 
-警告弹框的处理
+# 警告弹框的处理
 ①driver.switch_to.alert() # 切换到弹框（alert、prompt、confirm）
 
 ②driver.switch_to.alert().text # 获取弹框的文本内容
@@ -118,14 +118,14 @@ driver.switch_to_frame(xf)
 
 ⑤driver.switch_to.alert().sendkeys(‘hello’) # 切换到弹框并且在输入框中输
 
-文件上传
+# 文件上传
 #打开上传功能页面
 file_path = ‘file:///’ + os.path.abspath(‘upfile.html’)
 driver.get(file_path)
 #定位上传按钮，添加本地文件
 driver.find_element_by_name(“file”).send_keys(‘D:\upload_file.txt’)
 
-调用JS
+# 调用JS
 ①js=“var q=document.documentElement.scrollTop=10000”
 
 编写js代码：将页面的滚动条向下移动10000px
@@ -142,7 +142,7 @@ js_=“var q=document.documentElement.scrollTop=0”
 driver.execute_script(js_)
 time.sleep(3)
 
-错误窗口截图
+# 错误窗口截图
 driver.get_screenshot_as_file(“D:\baidu_error.jpg”)
 将当前页面可视区截图并存放命名为D:\baidu_error.jpg
 例:
