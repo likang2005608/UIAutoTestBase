@@ -3,13 +3,21 @@ UI自动化测试基础知识点
 
 # 元素的定位的8种方法
 ①id
+
 ②name
+
 ③class name
+
 ④tag name
+
 ⑤link text
+
 ⑥partial link text
+
 ⑦xpath
+
 ⑧CSS
+
 如果实在不知道怎么通过上述8个类型去定位，那么可以再在火狐浏览器47版本及以下装一个firebug和Xpath来快速的获取元素的定位
 基本语法：find_element_by_xpath("//input[@id=‘kw’]")
 
