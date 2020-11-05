@@ -75,15 +75,25 @@ perform() 执行所有 ActionChains 中存储的行为
 
 # 键盘事件
 driver.find_element_by_id(“kw”).send_keys(“seleniumm”) # 输入内容selenium
+
 driver.find_element_by_id(“kw”).send_keys(Keys.BACK_SPACE) # 退格
+
 driver.find_element_by_id(“kw”).send_keys(Keys.SPACE) # 空格键
+
 driver.find_element_by_id(“kw”).send_keys(Keys.CONTROL,‘a’) # 全选输入框内容
+
 driver.find_element_by_id(“kw”).send_keys(Keys.CONTROL,‘x’) # 剪切输入框内容
+
 driver.find_element_by_id(“kw”).send_keys(Keys.CONTROL,‘v’) # 粘贴内容到输入框
+
 driver.find_element_by_id(“kw”).send_keys(Keys.CONTROL,‘c’) # 复制选中的内容
+
 driver.find_element_by_id(“su”).send_keys(Keys.ENTER) # 回车操作代替点击按钮
+
 driver.find_element_by_id(“su”).send_keys(Keys.ESCAPE) # 退出按钮
+
 driver.find_element_by_id(“su”).send_keys(Keys.TAB) # 制表键
+
 driver.find_element_by_id(“su”).send_keys(Keys.F1) # 按下键盘F1
 
 # 等待函数
