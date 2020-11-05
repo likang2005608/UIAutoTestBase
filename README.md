@@ -140,6 +140,7 @@ driver.switch_to_frame(xf)
 #打开上传功能页面
 file_path = ‘file:///’ + os.path.abspath(‘upfile.html’)
 driver.get(file_path)
+
 #定位上传按钮，添加本地文件
 driver.find_element_by_name(“file”).send_keys(‘D:\upload_file.txt’)
 
@@ -163,6 +164,7 @@ time.sleep(3)
 # 错误窗口截图
 driver.get_screenshot_as_file(“D:\baidu_error.jpg”)
 将当前页面可视区截图并存放命名为D:\baidu_error.jpg
+
 例:
 driver.get(‘http://www.baidu.com’)
 try:
