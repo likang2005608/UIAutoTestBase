@@ -1,6 +1,14 @@
 # UIAutoTestBase
 UI自动化测试基础知识点
 
+# webdriver原理
+
+1）WebDriver 启动目标浏览器，并绑定到指定端口。该启动的浏览器实例，做为web driver 的remote server。
+
+2）Client 端通过CommandExcuter 发送HTTPRequest 给remote server 的侦听端口（通信协议： the webriver wire protocol）
+
+3）Remote server 需要依赖原生的浏览器组件（如：IEDriverServer.exe、chromedriver.exe），来转化转化浏览器的native 调用。
+
 # 元素的定位的8种方法
 ①id
 
@@ -19,7 +27,26 @@ UI自动化测试基础知识点
 ⑧CSS
 
 如果实在不知道怎么通过上述8个类型去定位，那么可以再在火狐浏览器47版本及以下装一个firebug和Xpath来快速的获取元素的定位
-基本语法：find_element_by_xpath("//input[@id=‘kw’]")
+基本语法：
+find_element_by_xpath("//input[@id=‘kw’]")
+
+find_element_by_id()----唯一
+
+find_element_by_name()----唯一
+
+find_element_by_linx_text()----操作对象是文字超链接
+
+find_element_by_partial_link_text()----操作对象是文字超链接
+
+find_element_by_class_name()
+
+find_element_by_tag_name()
+
+find_element_by_xpath()
+
+find_element_by_css_selector()
+
+这个真的不懂，firebug里面可以定位
 
 # 操作浏览器界面
 ①全屏：maximize_window()，无需传参
@@ -104,10 +131,29 @@ driver.find_element_by_id(“su”).send_keys(Keys.TAB) # 制表键
 
 driver.find_element_by_id(“su”).send_keys(Keys.F1) # 按下键盘F1
 
+# 获得页面URL和title
+
+1）获得当前页面title，判断页面跳转是否符合预期
+
+title = driver.title
+
+2）获得当前URL，一般用来测试重定向
+
+url = driver.current_url
+
 # 等待函数
 ①driver.implicitly_wait(10) # 等待10秒钟，若提前结束就停止等待，若超时就抛出异常
 ②time.sleep(10) # 傻傻的等待10秒钟，不管是否提前结束
+③WebDriverWait()：# webdriver提供的另一个方法，在设置时间内，默认每隔一段时间去检测页面元素是否存在，如果超出设置时间检测不到则抛出异常。
+WebDriverWait(driver, timeout, poll_frequency=0.5, ignored_exceptions=None)
 
+driver - WebDriver 的驱动程序(Ie, Firefox, Chrome 或远程)
+
+timeout - 最长超时时间，默认以秒为单位
+
+poll_frequency - 休眠时间的间隔（步长）时间，默认为0.5 秒
+
+ignored_exceptions - 超时后的异常信息，默认情况下抛NoSuchElementException 异常。
 # 不同框架之间的切换
 ①driver.switch_to.frame(“if”) # 切换到id或者name为if的框架
 
@@ -124,6 +170,48 @@ driver.switch_to_frame(xf)
 ②driver.window_handles 　　 # 获取所有窗口的句柄
 
 ③driver.switch_to.window() 　 # 切换到某个窗口
+
+④driver.close()   # 关闭当前窗口
+
+⑤driver.quit()  # 关闭所有窗口
+
+# 下拉菜单处理
+
+1）传统下拉菜单
+
+先定位到下拉菜单，再点击选项
+
+2）下拉菜单需点击才能显示选项
+
+有两次点击动作，第一次点击下拉菜单，第二次点击选项
+
+3）下拉菜单不需点击，鼠标放上去就会显示选项，则可以使用move_to_element()方法定位
+
+4）针对下拉菜单标签是select的
+
+导入Select类：from selenium.webdriver.support.select import Select
+
+使用方法：Select(driver.find_element_by_name("xxx")).select_by_index()
+
+选择列表：
+
+select_by_index(index)---------------------------根据index属性定位选项，index从0开始
+
+select_by_value(value)---------------------------根据value属性定位
+
+select_by_visible_text(text)----------------------根据选项文本值来定位
+
+first_selected_option()----------------------------选择第一个选项
+
+清除列表
+
+deselect_by_index(index)---------------------------根据index属性清除选定的选项，index从0开始
+
+deselect_by_value(value)---------------------------根据value属性
+
+deselect_by_visible_text(text)----------------------根据选项文本值
+
+deselect_all()--------------------------------------------清除所有选项
 
 # 警告弹框的处理
 ①driver.switch_to.alert() # 切换到弹框（alert、prompt、confirm）
@@ -161,6 +249,28 @@ js_=“var q=document.documentElement.scrollTop=0”
 driver.execute_script(js_)
 time.sleep(3)
 
+# 处理cookie
+
+driver.get_cookies()-------------------------------获得所有cookie
+
+driver.get_cookie(name)-------------------------获得name属性的cookie
+
+driver.add_cookie(cookie_dic)-----------------添加cookie（cookie格式为字典，）
+
+driver.delete_cookie(name)---------------------删除特定cookie
+
+driver.delete_all_cookies()----------------------删除所有cookie
+
+# 验证码问题
+
+跳过验证码的方法：
+
+1）去掉验证码
+
+2）设置万能码
+
+3）通过cookie跳过验证码登录
+
 # 错误窗口截图
 driver.get_screenshot_as_file(“D:\baidu_error.jpg”)
 将当前页面可视区截图并存放命名为D:\baidu_error.jpg
@@ -173,3 +283,17 @@ driver.find_element_by_id(‘su’).click()
 except :
 driver.get_screenshot_as_file(“D:\baidu_error.jpg”)
 driver.quit()
+
+# 编写自动化测试用例的原则：
+
+1、一个脚本是一个完整的场景，从用户登陆操作到用户退出系统关闭浏览器。
+
+2、一个脚本脚本只验证一个功能点，不要试图用户登陆系统后把所有的功能都进行验证再退出系统
+
+3、尽量只做功能中正向逻辑的验证，不要考虑太多逆向逻辑的验证，逆向逻辑的情况很多（例如手号输错有很多种情况），验证一方面比较复杂，需要编写大量的脚本，另一方面自动化脚本本身比较脆弱，很多非正常的逻辑的验证能力不强。（我们尽量遵循用户正常使用原则编写脚本即可）
+
+4、脚本之间不要产生关联性，也就是说编写的每一个脚本都是独立的，不能依赖或影响其他脚本。
+
+5、如果对数据进行了修改，需要对数据进行还原。
+
+6、在整个脚本中只对验证点进行验证，不要对整个脚本每一步都做验证。
