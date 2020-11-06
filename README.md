@@ -143,7 +143,9 @@ url = driver.current_url
 
 # 等待函数
 ①driver.implicitly_wait(10) # 等待10秒钟，若提前结束就停止等待，若超时就抛出异常
+
 ②time.sleep(10) # 傻傻的等待10秒钟，不管是否提前结束
+
 ③WebDriverWait()：# webdriver提供的另一个方法，在设置时间内，默认每隔一段时间去检测页面元素是否存在，如果超出设置时间检测不到则抛出异常。
 WebDriverWait(driver, timeout, poll_frequency=0.5, ignored_exceptions=None)
 
