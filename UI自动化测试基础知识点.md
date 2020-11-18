@@ -1,5 +1,4 @@
-# UIAutoTestBase
-UI自动化测试基础知识点
+# UI自动化测试基础知识点
 
 # webdriver原理
 
